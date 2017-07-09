@@ -125,6 +125,7 @@
         },
         installed: function () {
             this.initEntry();
+            this.initGroupKey();
         },
         initConsole: function () {
             window.console = {

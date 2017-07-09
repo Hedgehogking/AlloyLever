@@ -346,6 +346,7 @@ App.componentRes['component/alloy_lever/index.html'] =
         },
         installed: function () {
             this.initEntry();
+            this.initGroupKey();
         },
         initConsole: function () {
             window.console = {
