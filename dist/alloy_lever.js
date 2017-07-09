@@ -1,3 +1,38 @@
+/*
+ * @Author: Hedgehog
+ * @Date: 2017-07-09 14:35:30
+ * @Last Modified by:   Hedgehog
+ * @Last Modified time: 2017-07-09 14:35:30
+ */
+
+if (!Function.prototype.bind) {
+  Function.prototype.bind = function(oThis) {
+    if (typeof this !== 'function') {
+      // closest thing possible to the ECMAScript 5
+      // internal IsCallable function
+      throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+    }
+
+    var aArgs   = Array.prototype.slice.call(arguments, 1),
+        fToBind = this,
+        fNOP    = function() {},
+        fBound  = function() {
+          return fToBind.apply(this instanceof fNOP
+                 ? this
+                 : oThis,
+                 aArgs.concat(Array.prototype.slice.call(arguments)));
+        };
+
+    if (this.prototype) {
+      // Function.prototype doesn't have a prototype property
+      fNOP.prototype = this.prototype;
+    }
+    fBound.prototype = new fNOP();
+
+    return fBound;
+  };
+}
+
 /* Nuclear  v0.2.15
  * By AlloyTeam http://www.alloyteam.com/
  * Github: https://github.com/AlloyTeam/Nuclear
@@ -2798,7 +2833,7 @@ window.timing = window.timing || {
     };
 App.componentRes['component/alloy_lever/index.html'] =
 '<style scoped type="text/css">\
-    * {\
+    .alloylever-container * {\
         box-sizing: border-box;\
         font-size : 13px;\
     }\
@@ -2964,8 +2999,9 @@ App.componentRes['component/alloy_lever/index.html'] =
     }\
 </style>\
 \
-<a href="javascript:;" class="at-entry" nc-id="atEntry" onclick="toggleEntry()"  ontouchstart="touchStart(event)" style="transform: translate3d({{tx}}px,{{ty}}px,0px);-webkit-transform: translate3d({{tx}}px,{{ty}}px,0px);">AlloyLever</a>\
-<div class="at-ctn {{#hide}}at-hide{{/hide}}">\
+<!--按钮设置为display:none了，所以可以通过组合键执行 Nuclear.instances[0].toggleEntry() 去操作显示隐藏debug面板-->\
+<a href="javascript:;" class="at-entry" nc-id="atEntry" onclick="toggleEntry()"  ontouchstart="touchStart(event)" style="transform: translate3d({{tx}}px,{{ty}}px,0px);-webkit-transform: translate3d({{tx}}px,{{ty}}px,0px);display:none;">AlloyLever</a>\
+<div class="at-ctn {{#hide}}at-hide{{/hide}} alloylever-container">\
     <div class="at-tabs">\
         <a class="at-tab {{tab1}}" onclick="goto(1,event)"  href="javascript:;">Console</a>\
         <a class="at-tab {{tab2}}" onclick="goto(2,event)"  href="javascript:;">XHR</a>\
@@ -3013,7 +3049,8 @@ App.componentRes['component/alloy_lever/index.html'] =
     <div class="at-toolbar">\
         <a href="javascript:;" onclick="clearLogs()" class="at-tool at-clear">Clear</a><a href="https://github.com/AlloyTeam/Nuclear" class="at-tool at-tool-right">Powered By Nuclear</a>\
     </div>\
-</div>';
+</div>\
+';
 
 ;(function () {
     var tpl = App.loadFile("component/alloy_lever/index.html");
@@ -3207,6 +3244,21 @@ App.componentRes['component/alloy_lever/index.html'] =
                 this.removeClass(this.atEntry,'at-entry-active');
             }.bind(this), false);
         },
+        initGroupKey:function(){
+            var tmpKey = '';
+            var targetKey = '9966';
+            var tmpTimeout = null;
+            window.addEventListener('keydown', function (evt) {
+                clearTimeout(tmpTimeout);
+                tmpKey += evt.key;
+                if (tmpKey === targetKey) {
+                    this.toggleEntry();
+                }
+                tmpTimeout = setTimeout(function() {
+                    tmpKey = '';
+                }, 3000);
+            }.bind(this), false);
+        },
         toggleEntry:function(){
                 this.toogle();
         },
@@ -3316,6 +3368,7 @@ App.componentRes['component/alloy_lever/index.html'] =
     });
     window.AlloyLever= AlloyLever;
 })();
+
 })();
 (function(){
     try {
