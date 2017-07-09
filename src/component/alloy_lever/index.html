@@ -1,5 +1,5 @@
 <style scoped type="text/css">
-    * {
+    .alloylever-container * {
         box-sizing: border-box;
         font-size : 13px;
     }
@@ -165,8 +165,9 @@
     }
 </style>
 
-<a href="javascript:;" class="at-entry" nc-id="atEntry" onclick="toggleEntry()"  ontouchstart="touchStart(event)" style="transform: translate3d({{tx}}px,{{ty}}px,0px);-webkit-transform: translate3d({{tx}}px,{{ty}}px,0px);">AlloyLever</a>
-<div class="at-ctn {{#hide}}at-hide{{/hide}}">
+<!--按钮设置为display:none了，所以可以通过组合键执行 Nuclear.instances[0].toggleEntry() 去操作显示隐藏debug面板-->
+<a href="javascript:;" class="at-entry" nc-id="atEntry" onclick="toggleEntry()"  ontouchstart="touchStart(event)" style="transform: translate3d({{tx}}px,{{ty}}px,0px);-webkit-transform: translate3d({{tx}}px,{{ty}}px,0px);display:none;">AlloyLever</a>
+<div class="at-ctn {{#hide}}at-hide{{/hide}} alloylever-container">
     <div class="at-tabs">
         <a class="at-tab {{tab1}}" onclick="goto(1,event)"  href="javascript:;">Console</a>
         <a class="at-tab {{tab2}}" onclick="goto(2,event)"  href="javascript:;">XHR</a>
