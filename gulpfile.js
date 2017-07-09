@@ -19,7 +19,6 @@ var headerComment = '/* AlloyLever v'+version+'\n'+
 gulp.task('concat', function () {
     gulp.src([
 
-        'fix/bind.js',
         'dev/js/nuclear.js',
         'fix/intro.js',
         'dev/js/app.js',

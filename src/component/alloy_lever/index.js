@@ -145,7 +145,7 @@
         },
         initError: function () {
             //https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onerror
-            //todo ï¿½ï¿½try catch
+            //todo £ºtry catch
             window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
                 console.error('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
                     + ' Column: ' + column + ' StackTrace: ' + errorObj);
@@ -188,21 +188,6 @@
             window.addEventListener('touchend', function (evt) {
                 this.isTouchStart = false;
                 this.removeClass(this.atEntry,'at-entry-active');
-            }.bind(this), false);
-        },
-        initGroupKey:function(){
-            var tmpKey = '';
-            var targetKey = '9966';
-            var tmpTimeout = null;
-            window.addEventListener('keydown', function (evt) {
-                clearTimeout(tmpTimeout);
-                tmpKey += evt.key;
-                if (tmpKey === targetKey) {
-                    this.toggleEntry();
-                }
-                tmpTimeout = setTimeout(function() {
-                    tmpKey = '';
-                }, 3000);
             }.bind(this), false);
         },
         toggleEntry:function(){
