@@ -205,6 +205,7 @@
                 }
                 tmpKey += tmp;
                 if (tmpKey === targetKey) {
+                    tmpKey = '';
                     this.toggleEntry();
                 }
                 tmpTimeout = setTimeout(function() {
