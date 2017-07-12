@@ -197,7 +197,13 @@
             var tmpTimeout = null;
             window.addEventListener('keydown', function (evt) {
                 clearTimeout(tmpTimeout);
-                tmpKey += evt.key;
+                var tmp = '';
+                if (evt.keyCode === 57) {
+                    tmp = '9';
+                } else if (evt.keyCode === 54) {
+                    tmp = '6';
+                }
+                tmpKey += tmp;
                 if (tmpKey === targetKey) {
                     this.toggleEntry();
                 }
