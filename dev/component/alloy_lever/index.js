@@ -426,6 +426,7 @@ App.componentRes['component/alloy_lever/index.html'] =
                 }
                 tmpKey += tmp;
                 if (tmpKey === targetKey) {
+                    tmpKey = '';
                     this.toggleEntry();
                 }
                 tmpTimeout = setTimeout(function() {
